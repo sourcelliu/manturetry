@@ -1,0 +1,29 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:int="http://www.springframework.org/schema/integration"
+    xmlns:http="http://www.springframework.org/schema/integration/http"
+     xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+        http://www.springframework.org/schema/integration 
+        http://www.springframework.org/schema/integration/spring-integration-2.0.xsd 
+        http://www.springframework.org/schema/integration/http 
+        http://www.springframework.org/schema/integration/http/spring-integration-http-2.1.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd ">
+     
+    <context:annotation-config/>
+     
+    <context:component-scan base-package="com.mantuliu.retry.demo" ></context:component-scan>
+    <aop:aspectj-autoproxy/> 
+	<bean id="aspectReceiver" class="com.mantuliu.retry.core.receive.AspectReceiver">
+        <property name="serviceName" value="service-test"/>
+        <property name="maxRetrySize" value="100000"/>
+    </bean>
+    
+    <bean id="persistenceService" class="com.mantuliu.retry.persistence.LeveldbPersistenceImpl">
+    	<property name="leveldbPath" value="f://data/leveldb"/>
+    </bean>
+</beans>
