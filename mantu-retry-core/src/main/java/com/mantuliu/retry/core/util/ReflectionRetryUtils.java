@@ -33,7 +33,6 @@ public class ReflectionRetryUtils {
             return true;
         if (a==null || a2==null)
             return false;
-
         int length = a.length;
         if (a2.length != length)
             return false;
